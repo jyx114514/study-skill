@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>知识总结模板</title>
+<style>
+  /* ===== 基础样式：简洁、专业、知识笔记风格 ===== */
+  :root {
+    --text: #1f2328;
+    --muted: #57606a;
+    --bg: #ffffff;
+    --code-bg: #f6f8fa;
+    --code-border: #d0d7de;
+    --accent: #0969da;
+    --warn-bg: #fff8c5;
+    --warn-border: #d4a72c;
+    --error-bg: #ffebe9;
+    --error-border: #cf222e;
+    --success-bg: #dafbe1;
+    --success-border: #1a7f37;
+    --note-bg: #ddf4ff;
+    --note-border: #0969da;
+    --table-head-bg: #f6f8fa;
+    --border: #d0d7de;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.75;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  /* ===== 标题层级 ===== */
+  h1 {
+    font-size: 1.9rem;
+    border-bottom: 3px solid var(--accent);
+    padding-bottom: 0.4rem;
+    margin-bottom: 1.2rem;
+  }
+  h2 {
+    font-size: 1.45rem;
+    margin-top: 2.2rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.3rem;
+  }
+  h3 { font-size: 1.15rem; margin-top: 1.6rem; }
+  h4 { font-size: 1.0rem; margin-top: 1.2rem; }
+
+  p { margin: 0.6rem 0; }
+  strong { color: var(--text); }
+  em { color: var(--muted); }
+
+  ul, ol { padding-left: 1.6rem; }
+  li { margin: 0.3rem 0; }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ===== 代码、命令、报错：明显不同的视觉样式 ===== */
+  code {
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    background: var(--code-bg);
+    border: 1px solid var(--code-border);
+    border-radius: 4px;
+    padding: 0.15em 0.4em;
+    font-size: 0.9em;
+  }
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--code-border);
+    border-radius: 6px;
+    padding: 0.9rem 1.1rem;
+    overflow-x: auto;
+    line-height: 1.5;
+    margin: 0.8rem 0;
+  }
+  pre code {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 0.88em;
+  }
+  /* 终端命令块 */
+  pre.command {
+    background: #0d1117;
+    color: #e6edf3;
+    border-color: #30363d;
+  }
+  pre.command code { color: #e6edf3; }
+
+  /* 报错块 */
+  .error {
+    background: var(--error-bg);
+    border-left: 4px solid var(--error-border);
+    border-radius: 4px;
+    padding: 0.7rem 1rem;
+    margin: 0.8rem 0;
+  }
+  .error code { border-color: var(--error-border); }
+
+  /* 注意事项 */
+  .note {
+    background: var(--note-bg);
+    border-left: 4px solid var(--note-border);
+    border-radius: 4px;
+    padding: 0.7rem 1rem;
+    margin: 0.8rem 0;
+  }
+
+  /* 警告 */
+  .warning {
+    background: var(--warn-bg);
+    border-left: 4px solid var(--warn-border);
+    border-radius: 4px;
+    padding: 0.7rem 1rem;
+    margin: 0.8rem 0;
+  }
+
+  /* 成功 / 最终解决方案 */
+  .success {
+    background: var(--success-bg);
+    border-left: 4px solid var(--success-border);
+    border-radius: 4px;
+    padding: 0.9rem 1.1rem;
+    margin: 1rem 0;
+  }
+  .success h3 { margin-top: 0.2rem; }
+
+  /* 关键结论高亮 */
+  .key-point {
+    background: var(--note-bg);
+    border: 1px solid var(--note-border);
+    border-radius: 6px;
+    padding: 0.8rem 1rem;
+    margin: 1rem 0;
+  }
+  .key-point strong { color: var(--accent); }
+
+  /* ===== 表格 ===== */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+    font-size: 0.95em;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.5rem 0.8rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--table-head-bg);
+    font-weight: 600;
+  }
+  tr:nth-child(even) td { background: #fafbfc; }
+
+  /* ===== SVG 插图容器 ===== */
+  .figure {
+    margin: 1.2rem 0;
+    text-align: center;
+  }
+  .figure svg { max-width: 100%; height: auto; }
+  .figure .caption {
+    font-size: 0.9em;
+    color: var(--muted);
+    margin-top: 0.4rem;
+  }
+
+  /* ===== 目录 ===== */
+  .toc {
+    background: var(--table-head-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem 1.5rem;
+    margin: 1.2rem 0 2rem;
+  }
+  .toc ul { margin: 0.3rem 0; }
+
+  /* ===== 页脚元信息 ===== */
+  .meta {
+    color: var(--muted);
+    font-size: 0.85em;
+    border-top: 1px solid var(--border);
+    padding-top: 0.8rem;
+    margin-top: 3rem;
+  }
+
+  /* ===== 打印友好 ===== */
+  @media print {
+    body { font-size: 11pt; }
+    .container { max-width: 100%; }
+  }
+
+  /* ===== 深色模式适配（浏览器自动） ===== */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --text: #e6edf3;
+      --muted: #9da7b3;
+      --bg: #0d1117;
+      --code-bg: #161b22;
+      --code-border: #30363d;
+      --accent: #58a6ff;
+      --warn-bg: #3d2f00;
+      --warn-border: #d4a72c;
+      --error-bg: #3a1d1d;
+      --error-border: #f85149;
+      --success-bg: #12291b;
+      --success-border: #3fb950;
+      --note-bg: #0c2d4a;
+      --note-border: #58a6ff;
+      --table-head-bg: #161b22;
+      --border: #30363d;
+    }
+    tr:nth-child(even) td { background: #11161c; }
+    a { color: var(--accent); }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <h1>《标题》</h1>
+
+  <!-- 可选：文档元信息 -->
+  <p class="meta">
+    整理自 AI 对话记录 · 日期：<span id="date"></span><br>
+    主题：学习笔记 / 技术排错 / 综合
+  </p>
+
+  <div class="toc">
+    <strong>目录</strong>
+    <ul>
+      <li><a href="#sec1">一、核心概念</a></li>
+      <li><a href="#sec2">二、机制 / 过程</a></li>
+      <li><a href="#sec3">三、最终解决方案（技术类）</a></li>
+      <li><a href="#sec4">四、核心知识总结（学习类）</a></li>
+    </ul>
+  </div>
+
+  <!-- ===== 按需复制以下区块 ===== -->
+
+  <h2 id="sec1">一、核心概念</h2>
+
+  <div class="key-point">
+    <strong>关键结论：</strong>一句话总结核心要点。
+  </div>
+
+  <h3>1.1 定义</h3>
+  <p>概念的定义与解释……</p>
+
+  <h3>1.2 组成部分</h3>
+  <ul>
+    <li>组成 A：……</li>
+    <li>组成 B：……</li>
+  </ul>
+
+  <h2 id="sec2">二、机制 / 过程</h2>
+
+  <div class="figure">
+    <!-- SVG 示例：通路 / 流程图 / 架构图，按需替换 -->
+    <svg width="600" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" font-family="sans-serif" font-size="13">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#0969da"/>
+        </marker>
+      </defs>
+      <!-- 节点 -->
+      <rect x="20" y="70" width="130" height="40" rx="6" fill="#ddf4ff" stroke="#0969da" stroke-width="1.5"/>
+      <text x="85" y="94" text-anchor="middle">起点</text>
+      <rect x="235" y="70" width="130" height="40" rx="6" fill="#ddf4ff" stroke="#0969da" stroke-width="1.5"/>
+      <text x="300" y="94" text-anchor="middle">中间步骤</text>
+      <rect x="450" y="70" width="130" height="40" rx="6" fill="#ddf4ff" stroke="#0969da" stroke-width="1.5"/>
+      <text x="515" y="94" text-anchor="middle">最终结果</text>
+      <!-- 箭头 -->
+      <line x1="150" y1="90" x2="230" y2="90" stroke="#0969da" stroke-width="2" marker-end="url(#arrow)"/>
+      <line x1="365" y1="90" x2="445" y2="90" stroke="#0969da" stroke-width="2" marker-end="url(#arrow)"/>
+    </svg>
+    <div class="caption">图 1：过程概览</div>
+  </div>
+
+  <ol>
+    <li><strong>起点</strong>：……</li>
+    <li><strong>中间步骤</strong>：……</li>
+    <li><strong>关键节点</strong>：……</li>
+    <li><strong>最终结果</strong>：……</li>
+  </ol>
+
+  <h3>2.1 易混淆概念对比</h3>
+  <table>
+    <thead>
+      <tr><th>维度</th><th>概念 A</th><th>概念 B</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>定义</td><td>……</td><td>……</td></tr>
+      <tr><td>作用</td><td>……</td><td>……</td></tr>
+      <tr><td>关键区别</td><td colspan="2">……</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="sec3">三、最终解决方案（技术排错类使用）</h2>
+
+  <div class="success">
+    <h3>✅ 最终解决方案</h3>
+    <ul>
+      <li><strong>最终原因</strong>：……</li>
+      <li><strong>最终修改</strong>：……</li>
+      <li><strong>关键命令</strong>：</li>
+    </ul>
+    <pre class="command"><code># 命令示例
+your-command --flag value</code></pre>
+    <p><strong>验证方法</strong>：……</p>
+  </div>
+
+  <div class="note">
+    <strong>提示：</strong>以后遇到类似问题可先检查……（踩坑点）。
+  </div>
+
+  <h2 id="sec4">四、核心知识总结（学习类使用）</h2>
+
+  <ul>
+    <li><strong>最重要的概念</strong>：……</li>
+    <li><strong>关键机制</strong>：……</li>
+    <li><strong>关键因果关系</strong>：……</li>
+    <li><strong>容易混淆</strong>：……</li>
+    <li><strong>最值得记忆</strong>：……</li>
+  </ul>
+
+  <hr>
+
+  <p class="meta">
+    本笔记由 study-experience-summary skill 生成。
+    若发现问题或需要补充，可随时更新此文档。
+  </p>
+
+</div>
+<script>
+  // 自动填充日期
+  document.getElementById('date').textContent = new Date().toLocaleDateString('zh-CN');
+</script>
+</body>
+</html>
