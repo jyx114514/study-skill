@@ -1,0 +1,7 @@
+interface:
+  display_name: "PDF Smart Reader"
+  short_description: "Read scans with cached local RapidOCR and selective vision"
+  default_prompt: "Use $pdf-smart-reader to read this PDF with the light path, cached RapidOCR when needed, and selective visual checks."
+policy:
+  allow_implicit_invocation: false
+
